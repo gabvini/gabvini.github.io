@@ -1,1 +1,1157 @@
-# gabvini.github.io
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gabriel Vinicius de Souza — Desenvolvimento de Jogos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  .sobre-text a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: opacity 0.2s;
+  }
+
+  .sobre-text a:hover {
+    opacity: 0.75;
+  }
+
+  :root {
+    --ink: #1a1814;
+    --paper: #f5f0e8;
+    --paper2: #ede8dc;
+    --accent: #f1a517;
+    --accent2: #4a7c59;
+    --accent3: #2a5fa8;
+    --muted: #6b6560;
+    --grid: rgba(26,24,20,0.06);
+    --pixel: 4px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* Grid background texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 32px 32px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  * { position: relative; z-index: 1; }
+
+  /* ---- NAV ---- */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.35rem 3rem;
+    background: var(--paper);
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .nav-logo-icon {
+    width: 28px;
+    height: 28px;
+    background: var(--accent);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: transform 0.2s;
+  }
+
+  .nav-logo:hover .nav-logo-icon { transform: rotate(15deg) scale(1.1); }
+
+  .nav-logo-icon svg { width: 16px; height: 16px; display: block; }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--ink); }
+
+  .nav-cta {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.55rem 1.1rem;
+    border: 1.5px solid var(--ink);
+    border-radius: 100px;
+    color: var(--ink);
+    transition: background 0.2s, color 0.2s, transform 0.2s;
+    white-space: nowrap;
+  }
+
+  .nav-cta:hover { background: var(--ink); color: var(--paper); transform: scale(1.05); }
+
+  /* ---- SECTIONS ---- */
+  section { padding: 7rem 0; }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 3rem;
+  }
+
+  /* ---- HERO ---- */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-top: 5rem;
+    overflow: hidden;
+  }
+
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    width: 100%;
+  }
+
+  .hero-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .hero-label::before {
+    content: '';
+    display: inline-block;
+    width: 28px;
+    height: 2px;
+    background: var(--accent);
+  }
+
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(3.5rem, 6vw, 5.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-desc {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 38ch;
+    margin-bottom: 2.5rem;
+    line-height: 1.8;
+  }
+
+  .btn-group {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.85rem 1.75rem;
+    border: 2px solid var(--ink);
+    border-radius: 100px;
+    color: var(--ink);
+    background: transparent;
+    transition: background 0.2s, color 0.2s, transform 0.2s;
+    cursor: pointer;
+  }
+
+  .btn:hover { background: var(--ink); color: var(--paper); transform: scale(1.05); }
+
+  .btn-fill {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--ink);
+  }
+
+  .btn-fill:hover { background: var(--ink); border-color: var(--ink); color: var(--paper); transform: scale(1.05); }
+
+  /* Pixel art canvas decoration */
+  .hero-canvas {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .pixel-scene {
+    width: 340px;
+    height: 340px;
+    border: 2px solid var(--ink);
+    background: var(--paper2);
+    display: grid;
+    grid-template-columns: repeat(17, 1fr);
+    grid-template-rows: repeat(17, 1fr);
+    gap: 2px;
+    padding: 16px;
+    image-rendering: pixelated;
+    animation: scene-fade 1s ease forwards;
+  }
+
+  /* ---- WORD CYCLE ANIMATION ---- */
+  .word-cycle {
+    display: inline-block;
+    position: relative;
+    color: var(--accent);
+    font-style: italic;
+    min-width: 2ch;
+  }
+
+  .word-cycle::after {
+    content: '';
+    position: absolute;
+    bottom: 4px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--accent);
+    border-radius: 2px;
+    opacity: 0.4;
+  }
+
+  @keyframes wordFadeIn {
+    0%   { opacity: 0; transform: translateY(12px); }
+    20%  { opacity: 1; transform: translateY(0); }
+    80%  { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-10px); }
+  }
+
+  .word-cycle.animating {
+    animation: wordFadeIn 0.5s ease forwards;
+  }
+
+  /* ---- ABOUT ---- */
+  #sobre {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  #sobre::before { display: none; }
+
+  .sobre-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.82rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+
+  .section-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 5rem;
+    line-height: 1;
+    opacity: 0.08;
+    margin-bottom: -1.5rem;
+  }
+
+  h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+  }
+
+  .sobre-text p {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    opacity: 0.75;
+    margin-bottom: 1.25rem;
+  }
+
+  .sobre-text p:last-child { margin-bottom: 0; }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 2rem;
+  }
+
+  .tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.9rem;
+    border: 1px solid rgba(245,240,232,0.25);
+    color: rgba(245,240,232,0.6);
+  }
+
+  /* ---- MOTH KUBIT / CAROUSEL ---- */
+  #projetos { padding: 8rem 0; }
+
+  .mothkubit-intro {
+    margin-bottom: 3.5rem;
+    max-width: 680px;
+  }
+
+  .mothkubit-intro h2 { margin-bottom: 1.25rem; }
+
+  .mothkubit-intro p {
+    font-size: 1rem;
+    color: var(--muted);
+    line-height: 1.85;
+    margin-bottom: 0.75rem;
+  }
+
+  .carousel-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .carousel-track-wrapper {
+    width: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 2px solid var(--ink);
+    background: #0d0d0d;
+    aspect-ratio: 16/9;
+  }
+
+  .carousel-track {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .carousel-slide {
+    min-width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    image-rendering: pixelated;
+    display: block;
+  }
+
+  .carousel-btn {
+    position: absolute;
+    top: calc(50% - 1.5rem);
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 2px solid var(--ink);
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, color 0.2s, transform 0.2s;
+    z-index: 2;
+  }
+
+  .carousel-btn:hover { background: var(--ink); color: var(--paper); transform: translateY(-50%) scale(1.1); }
+
+  .carousel-prev { left: -22px; }
+  .carousel-next { right: -22px; }
+
+  .carousel-dots {
+    display: flex;
+    gap: 0.6rem;
+    align-items: center;
+  }
+
+  .carousel-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--ink);
+    opacity: 0.18;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.2s;
+    padding: 0;
+  }
+
+  .carousel-dot.active {
+    opacity: 1;
+    background: var(--accent);
+    transform: scale(1.3);
+  }
+
+  /* ---- PIXEL ART SECTION ---- */
+  #pixel-art {
+    background: var(--paper2);
+    border-top: 2px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .pixel-art-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .pixel-art-item {
+    aspect-ratio: 1;
+    border: 1px solid rgba(26,24,20,0.2);
+    border-radius: 16px;
+    background: var(--paper);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: transform 0.2s;
+  }
+
+  .pixel-art-item:hover { transform: scale(1.03); }
+
+  /* ---- AULAS ---- */
+  #aulas { background: var(--paper); }
+
+  .aulas-intro {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+    margin-bottom: 5rem;
+    padding-bottom: 5rem;
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .aulas-intro-text h2 { margin-bottom: 1.25rem; }
+
+  .aulas-intro-text p {
+    font-size: 1rem;
+    color: var(--muted);
+    line-height: 1.85;
+    margin-bottom: 1rem;
+  }
+
+  .aulas-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .meta-item {
+    padding: 1.5rem;
+    border: 1px solid rgba(26,24,20,0.18);
+    border-radius: 14px;
+  }
+
+  .meta-item-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+
+  .meta-item-value {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  .meta-item-sub {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-top: 0.25rem;
+  }
+
+  /* Como as aulas funcionam */
+  .aulas-como {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 3rem;
+    align-items: start;
+    padding: 3rem;
+    border: 2px solid var(--ink);
+    border-radius: 20px;
+    background: var(--paper2);
+  }
+
+  .aulas-como-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    padding-top: 0.2rem;
+  }
+
+  .aulas-como-body p {
+    font-size: 1.05rem;
+    color: var(--ink);
+    line-height: 1.9;
+  }
+
+  .aulas-como-body strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  /* ---- CONTATO ---- */
+  #contato {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  #contato::before { display: none; }
+
+  .contato-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  #contato h2 { color: var(--paper); margin-bottom: 1.25rem; }
+
+  #contato p {
+    opacity: 0.65;
+    line-height: 1.85;
+    margin-bottom: 2rem;
+  }
+
+  .contato-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .contato-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    color: var(--paper);
+    text-decoration: none;
+    padding: 1rem 1.25rem;
+    border: 1px solid rgba(245,240,232,0.15);
+    border-radius: 14px;
+    transition: border-color 0.2s, background 0.2s, transform 0.2s;
+  }
+
+  .contato-link:hover {
+    border-color: rgba(245,240,232,0.4);
+    background: rgba(245,240,232,0.05);
+    transform: translateX(4px);
+  }
+
+  .contato-link-icon {
+    width: 36px;
+    height: 36px;
+    border: 1px solid rgba(245,240,232,0.2);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+  }
+
+  .contato-link-text { flex: 1; }
+  .contato-link-label { opacity: 0.45; font-size: 0.62rem; display: block; margin-bottom: 0.1rem; }
+
+  /* ---- FOOTER ---- */
+  footer {
+    background: var(--ink);
+    color: var(--paper);
+    border-top: 1px solid rgba(245,240,232,0.1);
+    padding: 2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  footer::before { display: none; }
+
+  footer span {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    opacity: 0.3;
+  }
+
+  /* ---- DIVIDER ---- */
+  .section-divider {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 3.5rem;
+  }
+
+  .section-divider .section-label { margin: 0; }
+
+  .section-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.15;
+  }
+
+  /* ---- PIXEL ART SVG CHARACTERS ---- */
+  svg.pixel { image-rendering: pixelated; }
+
+  /* ---- RESPONSIVE ---- */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .container { padding: 0 1.5rem; }
+    .hero-inner { grid-template-columns: 1fr; }
+    .hero-canvas { display: none; }
+    .sobre-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .pixel-art-grid { grid-template-columns: repeat(2, 1fr); }
+    .aulas-intro { grid-template-columns: 1fr; gap: 2.5rem; }
+    .aulas-como { grid-template-columns: 1fr; gap: 1rem; }
+    .contato-inner { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    section { padding: 4rem 0; }
+    .carousel-prev { left: -14px; }
+    .carousel-next { right: -14px; }
+    .nav-cta { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">
+    <span class="nav-logo-icon">
+      <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- pixel gamepad icon -->
+        <rect x="2" y="5" width="12" height="7" rx="2" fill="var(--ink)"/>
+        <rect x="4" y="7" width="1" height="3" fill="var(--paper)"/>
+        <rect x="3" y="8" width="3" height="1" fill="var(--paper)"/>
+        <rect x="10" y="8" width="1" height="1" fill="var(--paper)"/>
+        <rect x="12" y="8" width="1" height="1" fill="var(--paper)"/>
+        <rect x="11" y="7" width="1" height="1" fill="var(--paper)"/>
+        <rect x="11" y="9" width="1" height="1" fill="var(--paper)"/>
+        <rect x="7" y="6" width="2" height="1" fill="var(--paper)" opacity="0.5"/>
+      </svg>
+    </span>
+    Gabriel Vinicius de Souza - GAME DEV
+  </a>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#projetos">Moth Kubit</a></li>
+      <li><a href="#aulas">Aulas</a></li>
+    </ul>
+    <a href="#contato" class="nav-cta">Contato</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="hero-label">Desenvolvedor & Professor</div>
+        <h1>Jogos são<br><span class="word-cycle" id="wordCycle">expressão.</span><br>Vamos criar<br>o seu.</h1>
+        <p class="hero-desc">
+          Aulas particulares de desenvolvimento de jogos — da ideia à finalização. <strong>Programação, arte e dGame Design: tudo a partir do jogo que você quer fazer.</strong>
+        </p>
+        <div class="btn-group">
+          <a href="#aulas" class="btn btn-fill">Ver as aulas</a>
+          <a href="#projetos" class="btn">Projetos</a>
+        </div>
+      </div>
+      <div class="hero-canvas">
+        <img src="image_1.png" alt="descrição da imagem" style="width: 100%; max-width: 400px;" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE -->
+<section id="sobre">
+  <div class="container">
+    <div class="sobre-grid">
+      <div class="sobre-left">
+        <div class="section-label">// 01</div>
+        <div class="section-num">01</div>
+        <h2 style="color: var(--paper);">Quem<br><em style="color:var(--accent);font-style:italic;">sou eu</em></h2>
+      </div>
+      <div class="sobre-text">
+        <p>
+          Sou desenvolvedor de jogos com proficiência em GameMaker Studio 2, Game Design e Pixel Art. Trabalho na área desde 2022, onde além de atuar como freelancer desenvolvo o meu jogo chamado <a href="https://store.steampowered.com/app/2257830/Moth_Kubit/" target="_blank">Moth Kubit</a>, um RPG Experimental com foco narrativo.
+        </p>
+        <p>
+          Além disso em 2021 comecei um canal no Youtube chamado <a href="https://youtube.com/@PontoeVírgula-x3s" target="_blank">Ponto e Vírgula</a>. Com o canal me conectei com a área da educação e gostei muito. Após isso comecei a dar aulas online, e esse ano tive a oportunidade de começar a dar aulas presenciais em uma escola de artes em Limeira - SP. Entendo que cada pessoa aprende diferente — por isso minhas aulas não seguem um roteiro fixo. A gente trabalha em cima do que <em>você</em> quer construir.
+        </p>
+        <p>
+          Acredito que um jogo tem um potencial irrestrito, podendo ser: uma ideia, uma história, um desafio, um experimento ou um entretenimento. Meu papel é ajudar você a transformar isso em realidade.
+        </p>
+        <div class="tags">
+          <span class="tag">GameMaker Studio 2</span>
+          <span class="tag">Pixel Art</span>
+          <span class="tag">Game Design</span>
+          <span class="tag">GML</span>
+          <span class="tag">Level Design</span>
+          <span class="tag">Sound Design</span>
+          <span class="tag">Aulas Online</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MOTH KUBIT -->
+<section id="projetos">
+  <div class="container">
+    <div class="section-divider">
+      <span class="section-label">// 02 — Moth Kubit</span>
+    </div>
+
+    <div class="mothkubit-intro">
+      <div class="mothkubit-text">
+        <h2>Um jogo sobre o fim<br><em style="color:var(--accent);font-family:'DM Serif Display',serif;font-style:italic;">da realidade</em></h2>
+        <p>
+          Moth Kubit é um jogo 2D top-down ambientado em um ambiente corporativo durante o <em>Processo Final</em> — um evento apocalíptico silencioso. Entre sistemas de narrativa, minigames, sistemas de escolhas, e puzzle, o jogo é a realização de anos de estudo e dedicação. Com esse jogo participei de diversos eventos, como o BIG Festival, Festival Jogatório e até na Tokyo Game Show.
+        </p>
+        <p>
+          Em desenvolvimento no GameMaker Studio 2.
+        </p>
+      </div>
+    </div>
+
+    <!-- CARROSSEL -->
+    <div class="carousel-container">
+      <button class="carousel-btn carousel-prev" aria-label="Anterior">&#8592;</button>
+      <div class="carousel-track-wrapper">
+        <div class="carousel-track" id="carouselTrack">
+          <!-- SLIDES — adicione mais <div class="carousel-slide"> aqui -->
+          <div class="carousel-slide">
+            <img src="1.gif" alt="Moth Kubit — boss verme" />
+          </div>
+          <div class="carousel-slide">
+            <img src="2.png" alt="Moth Kubit — lâmpada com mariposas" />
+          </div>
+          <div class="carousel-slide">
+            <img src="3.png" alt="Moth Kubit — lâmpada com mariposas" />
+          </div>
+          <div class="carousel-slide">
+            <img src="4.gif" alt="Moth Kubit — lâmpada com mariposas" />
+          </div>
+          <div class="carousel-slide">
+            <img src="5.gif" alt="Moth Kubit — lâmpada com mariposas" />
+          </div>
+          <div class="carousel-slide">
+            <img src="6.gif" alt="Moth Kubit — lâmpada com mariposas" />
+          </div>
+          <!-- Exemplo de como adicionar mais slides:
+          <div class="carousel-slide">
+            <img src="sua-imagem.gif" alt="descrição" />
+          </div>
+          -->
+        </div>
+      </div>
+      <button class="carousel-btn carousel-next" aria-label="Próximo">&#8594;</button>
+      <div class="carousel-dots" id="carouselDots"></div>
+    </div>
+  </div>
+</section>
+
+<!-- PIXEL ART -->
+<section id="pixel-art">
+  <div class="container">
+    <div class="section-divider">
+      <span class="section-label" style="font-family:'Space Mono',monospace;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);">// 03 — Pixel Art</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;">
+      <div>
+        <h2>Arte e animação<br><em style="color:var(--accent);font-family:'DM Serif Display',serif;font-style:italic;">para os jogos</em></h2>
+        <p style="color:var(--muted);margin-top:1rem;line-height:1.85;">
+          Nas aulas, a arte e a programação são partes fundamentais abordadas desde o início.
+        </p>
+        <p style="color:var(--muted);margin-top:1rem;line-height:1.85;">
+          Você aprenderá a desenvolver seus próprios personagens, cenários, tiles e animações para trazer seu jogo à vida.
+        </p>
+      </div>
+      <div class="pixel-art-grid">
+        <!-- Pixel art placeholders - substitua por suas imagens -->
+        <div class="pixel-art-item">
+          <svg viewBox="0 0 64 64" width="100%" style="image-rendering:pixelated" xmlns="http://www.w3.org/2000/svg">
+            <rect width="64" height="64" fill="#1e1a2e"/>
+            <rect x="24" y="10" width="16" height="16" fill="#e8b88a"/>
+            <rect x="20" y="10" width="8" height="8" fill="#2d1f0e"/>
+            <rect x="28" y="10" width="16" height="4" fill="#2d1f0e"/>
+            <rect x="28" y="30" width="4" height="4" fill="#1a1814"/>
+            <rect x="36" y="30" width="4" height="4" fill="#1a1814"/>
+            <rect x="20" y="26" width="24" height="22" fill="#c94b2a"/>
+            <rect x="14" y="28" width="8" height="18" fill="#c94b2a"/>
+            <rect x="42" y="28" width="8" height="18" fill="#c94b2a"/>
+            <rect x="22" y="48" width="8" height="12" fill="#2d1f0e"/>
+            <rect x="34" y="48" width="8" height="12" fill="#2d1f0e"/>
+            <rect x="18" y="58" width="12" height="6" fill="#1a1814"/>
+            <rect x="34" y="58" width="12" height="6" fill="#1a1814"/>
+            <!-- Sword -->
+            <rect x="46" y="20" width="4" height="20" fill="#8a9ab0"/>
+            <rect x="42" y="22" width="12" height="4" fill="#8a9ab0"/>
+          </svg>
+        </div>
+        <div class="pixel-art-item">
+          <svg viewBox="0 0 64 64" width="100%" style="image-rendering:pixelated" xmlns="http://www.w3.org/2000/svg">
+            <rect width="64" height="64" fill="#0d1c14"/>
+            <rect y="44" width="64" height="20" fill="#1a3020"/>
+            <rect x="0" y="44" width="64" height="6" fill="#224228"/>
+            <!-- Tree -->
+            <rect x="24" y="8" width="8" height="44" fill="#2d1810"/>
+            <rect x="12" y="8" width="32" height="28" fill="#1e4028"/>
+            <rect x="8" y="18" width="40" height="20" fill="#1a3820"/>
+            <rect x="14" y="28" width="28" height="14" fill="#224828"/>
+            <!-- Fruit -->
+            <rect x="16" y="22" width="8" height="8" fill="#c94b2a"/>
+            <rect x="36" y="18" width="8" height="8" fill="#c94b2a"/>
+            <rect x="26" y="32" width="8" height="8" fill="#e87838"/>
+          </svg>
+        </div>
+        <div class="pixel-art-item">
+          <svg viewBox="0 0 64 64" width="100%" style="image-rendering:pixelated" xmlns="http://www.w3.org/2000/svg">
+            <rect width="64" height="64" fill="#0d1f3c"/>
+            <!-- Building -->
+            <rect x="8" y="20" width="48" height="44" fill="#111828"/>
+            <rect x="8" y="14" width="48" height="10" fill="#1a2438"/>
+            <!-- Windows -->
+            <rect x="14" y="24" width="8" height="8" fill="#f0c040" opacity="0.9"/>
+            <rect x="28" y="24" width="8" height="8" fill="#4a9fe8" opacity="0.7"/>
+            <rect x="42" y="24" width="8" height="8" fill="#f0c040" opacity="0.5"/>
+            <rect x="14" y="36" width="8" height="8" fill="#f0c040"/>
+            <rect x="28" y="36" width="8" height="8" fill="#4a9fe8"/>
+            <rect x="42" y="36" width="8" height="8" fill="#f0c040" opacity="0.8"/>
+            <rect x="14" y="48" width="8" height="8" fill="#4a9fe8" opacity="0.6"/>
+            <rect x="28" y="48" width="8" height="8" fill="#f0c040" opacity="0.9"/>
+            <rect x="42" y="48" width="8" height="8" fill="#4a9fe8"/>
+            <!-- Door -->
+            <rect x="26" y="52" width="12" height="12" fill="#2a1e14"/>
+            <!-- Stars -->
+            <rect x="4" y="4" width="2" height="2" fill="#f5f0e8"/>
+            <rect x="40" y="2" width="2" height="2" fill="#f5f0e8"/>
+            <rect x="58" y="6" width="2" height="2" fill="#f5f0e8"/>
+          </svg>
+        </div>
+        <div class="pixel-art-item">
+          <svg viewBox="0 0 64 64" width="100%" style="image-rendering:pixelated" xmlns="http://www.w3.org/2000/svg">
+            <rect width="64" height="64" fill="#1a1424"/>
+            <!-- Magic orb -->
+            <rect x="20" y="20" width="24" height="24" fill="#4a2a8a" rx="12"/>
+            <rect x="24" y="24" width="16" height="16" fill="#6a3ab0" rx="8"/>
+            <rect x="28" y="28" width="8" height="8" fill="#9a60e0" rx="4"/>
+            <rect x="30" y="30" width="4" height="4" fill="#c8a0f8"/>
+            <!-- Sparkles -->
+            <rect x="12" y="12" width="4" height="4" fill="#9a60e0" opacity="0.7">
+              <animate attributeName="opacity" values="0.7;0.1;0.7" dur="1.3s" repeatCount="indefinite"/>
+            </rect>
+            <rect x="48" y="16" width="4" height="4" fill="#c8a0f8" opacity="0.5">
+              <animate attributeName="opacity" values="0.5;0;0.5" dur="1.8s" repeatCount="indefinite"/>
+            </rect>
+            <rect x="10" y="46" width="4" height="4" fill="#9a60e0" opacity="0.6">
+              <animate attributeName="opacity" values="0.2;0.8;0.2" dur="2s" repeatCount="indefinite"/>
+            </rect>
+            <rect x="50" y="42" width="4" height="4" fill="#c8a0f8" opacity="0.8">
+              <animate attributeName="opacity" values="0.8;0.2;0.8" dur="1.5s" repeatCount="indefinite"/>
+            </rect>
+            <!-- Stand -->
+            <rect x="28" y="44" width="8" height="8" fill="#3a2060"/>
+            <rect x="22" y="52" width="20" height="6" fill="#2a1848"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AULAS -->
+<section id="aulas">
+  <div class="container">
+    <div class="section-divider">
+      <span class="section-label" style="font-family:'Space Mono',monospace;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);">// 04 — Aulas</span>
+    </div>
+
+    <div class="aulas-intro">
+      <div class="aulas-intro-text">
+        <h2>Aprenda fazendo<br><em style="color:var(--accent);font-family:'DM Serif Display',serif;font-style:italic;">o seu jogo</em></h2>
+        <p>
+          Não existe apenas uma maneira de se aprender. Começamos pelo jogo que você quer fazer — e constrói o aprendizado em volta disso. Programação, arte e Game Design: tudo conectado ao seu projeto.
+        </p>
+        <p>
+          Seja você um iniciante absoluto ou alguém que já programa e quer entrar em games, as aulas se adaptam ao seu ritmo e ao seu objetivo.
+        </p>
+        <p>
+          A intenção não é só aprender — é criar algo que você queira compartilhar, jogar e seja seu.
+        </p>
+      </div>
+      <div class="aulas-meta">
+        <div class="meta-item">
+          <div class="meta-item-label">Formato</div>
+          <div class="meta-item-value">Online (Google Meet / Discord) e Presencial</div>
+          <div class="meta-item-sub">Agendamento flexível conforme sua disponibilidade</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-item-label">Público</div>
+          <div class="meta-item-value">Todos os níveis</div>
+          <div class="meta-item-sub">Iniciantes, intermediários, e quem quer migrar para a área de jogos</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-item-label">Engine principal</div>
+          <div class="meta-item-value">GameMaker Studio 2</div>
+          <div class="meta-item-sub">Com foco em criar jogos 2D do zero ao produto final, podendo expandir para o 3D em outras engines com o desenvolver do aluno</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-item-label">Contato</div>
+          <div class="meta-item-value">Entre em contato para saber mais</div>
+          <div class="meta-item-sub">Conversa inicial gratuita para alinhar objetivos</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-item-label">Portfolio</div>
+          <div class="meta-item-value">Jogos no Itch.io</div>
+          <div class="meta-item-sub">Após todo projeto criaremos uma página no Itch.io para o aluno começar a criar seu portfólio</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Como as aulas funcionam -->
+    <div class="aulas-como">
+      <div class="aulas-como-label">// Como funciona</div>
+      <div class="aulas-como-body">
+        <p>
+          As aulas têm duração de <strong>1 hora e meia</strong> e podem ser feitas individualmente ou com outros alunos (preços mais acessíveis). Todas as aulas são exclusivas e preparadas para atender à necessidade do aluno, com explicação visual em lousa digital, exemplos dentro do Game Maker e exercícios ao final de cada aula para o aluno ter a prática durante a semana. Para mais informações entre em contato comigo em qualquer meio abaixo!
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section id="contato">
+  <div class="container">
+    <div class="contato-inner">
+      <div>
+        <div class="section-label" style="color:rgba(245,240,232,0.35);font-family:'Space Mono',monospace;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;">// 05</div>
+        <h2>Vamos <em style="color:var(--accent);font-style:italic;">criar</em><br>algo juntos</h2>
+        <p>
+          Manda uma mensagem, conta o que você quer desenvolver, e a gente marca uma conversa inicial sem compromisso para ver se faz sentido trabalhar juntos.
+        </p>
+      </div>
+      <div class="contato-links">
+        <!-- Substitua os links e informações abaixo pelos seus reais -->
+        <a href="/cdn-cgi/l/email-protection#9be8feeedbfef6faf2f7b5f8f4f6" class="contato-link">
+          <div class="contato-link-icon">@</div>
+          <div class="contato-link-text">
+            <span class="contato-link-label">E-mail</span>
+            <span class="__cf_email__" data-cfemail="5c2f39291c39313d3530723f3331">gabvinidev@gmail.com</span>
+          </div>
+        </a>
+        <a href="https://wa.me/5500000000000" class="contato-link" target="_blank">
+          <div class="contato-link-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </div>
+          <div class="contato-link-text">
+            <span class="contato-link-label">WhatsApp</span>
+            (19) 98132-0759
+          </div>
+        </a>
+        <a href="https://instagram.com/seu_perfil" class="contato-link" target="_blank">
+          <div class="contato-link-icon">ig</div>
+          <div class="contato-link-text">
+            <span class="contato-link-label">Instagram</span>
+            @gabviniis
+          </div>
+        </a>
+        <a href="https://linkedin.com/in/seu_perfil" class="contato-link" target="_blank">
+          <div class="contato-link-icon">DC</div>
+          <div class="contato-link-text">
+            <span class="contato-link-label">Discord</span>
+            gabvinis
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>Gabriel — Desenvolvimento de Jogos (2026)</span>
+</footer>
+
+<script>
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+
+  // Nav active state
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(link => {
+          link.style.color = '';
+          if (link.getAttribute('href') === '#' + entry.target.id) link.style.color = 'var(--ink)';
+        });
+      }
+    });
+  }, { threshold: 0.4 });
+  sections.forEach(s => observer.observe(s));
+
+  // Word cycle animation
+  const words = ['expressão.', 'criatividade.', 'diversão.', 'arte.', 'narrativa.', 'possibilidade.', 'um mundo.'];
+  const wordEl = document.getElementById('wordCycle');
+  let wordIndex = 0;
+
+  function cycleWord() {
+    wordIndex = (wordIndex + 1) % words.length;
+    wordEl.style.opacity = '0';
+    wordEl.style.transform = 'translateY(10px)';
+    setTimeout(() => {
+      wordEl.textContent = words[wordIndex];
+      wordEl.style.opacity = '1';
+      wordEl.style.transform = 'translateY(0)';
+    }, 320);
+  }
+
+  if (wordEl) {
+    wordEl.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+    setInterval(cycleWord, 2800);
+  }
+
+  // Carousel
+  const track = document.getElementById('carouselTrack');
+  const dotsContainer = document.getElementById('carouselDots');
+  const slides = track ? track.querySelectorAll('.carousel-slide') : [];
+  let current = 0;
+
+  function buildDots() {
+    dotsContainer.innerHTML = '';
+    slides.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', 'Slide ' + (i + 1));
+      dot.addEventListener('click', () => goTo(i));
+      dotsContainer.appendChild(dot);
+    });
+  }
+
+  function goTo(index) {
+    current = (index + slides.length) % slides.length;
+    track.style.transform = 'translateX(-' + (current * 100) + '%)';
+    dotsContainer.querySelectorAll('.carousel-dot').forEach((d, i) => {
+      d.classList.toggle('active', i === current);
+    });
+  }
+
+  if (track && slides.length > 0) {
+    buildDots();
+    document.querySelector('.carousel-prev').addEventListener('click', () => goTo(current - 1));
+    document.querySelector('.carousel-next').addEventListener('click', () => goTo(current + 1));
+
+    // Touch/swipe support
+    let startX = 0;
+    track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+    track.addEventListener('touchend', e => {
+      const diff = startX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 40) goTo(diff > 0 ? current + 1 : current - 1);
+    });
+  }
+</script>
